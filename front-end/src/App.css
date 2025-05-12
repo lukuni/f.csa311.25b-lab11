@@ -1,47 +1,132 @@
-#board {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
-  padding: 10px
-}
-
-.cell {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  height: 25vmin;
-  text-align: center;
-}
-
-#bottombar {
-  height: 5vh;
-}
-
-#instructions {
-  height: 5vh;
-  background-color: white;
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  border: 1px solid black;
-}
-
-#bottombar button {
-  width: 50%;
-  /* height: 100%; */
-  margin: 0;
-  padding: 0;
-  position: relative;
-  float: left;
-  font-size: 2vw
-}
-
+/* Нийтлэг загварууд */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: sans-serif; /* Үндсэн фонтыг өөрчилж болно */
+  background-color: #f0f0f0; /* Хуудасны арын өнгийг өөрчилж болно */
 }
 
-.playable { background-color: red;}
+/* Instructions хэсгийн загвар */
+#instructions {
+  height: 5vh;
+  background-color: #e0e0e0; /* Арын өнгийг өөрчилж болно */
+  padding: 0px;
+  margin: 0px;
+  display: flex; /* Агуулгыг төвлөрүүлэхийн тулд */
+  justify-content: center; /* Хэвтээ тэнхлэгт төвлөрүүлэх */
+  align-items: center; /* Босоо тэнхлэгт төвлөрүүлэх */
+  text-align: center;
+  border: 1px solid #a0a0a0; /* Хилийг өөрчилж болно */
+  font-size: 1.5em; /* Фонтын хэмжээг тааруулж болно */
+  color: #333; /* Текстний өнгийг өөрчилж болно */
+  font-weight: bold; /* Тод болгож болно */
+}
+
+/* Самбарын загвар */
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 тэнцүү багана */
+  grid-template-rows: repeat(3, 1fr); /* 3 тэнцүү мөр */
+  gap: 5px; /* Нүднүүдийн хоорондох зай */
+  background-color: #4CAF50; /* Самбарын арын өнгийг өөрчилж болно */
+  padding: 10px;
+  width: 90vmin; /* Самбарын өргөнийг тааруулж болно */
+  height: 90vmin; /* Самбарын өндрийг тааруулж болно */
+  margin: 20px auto; /* Самбарыг төвлөрүүлэх */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Сүүдэр нэмж болно */
+}
+
+/* Нүдний гаднах контейнер (App.tsx дээр нэмсэн) */
+.cell-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9); /* Нүдний суурь өнгийг өөрчлөх */
+    border: 2px solid #777; /* Хилийг өөрчилж болно */
+    cursor: pointer; /* Хуулганаар дээгүүр нь явахад гар болгох */
+    transition: background-color 0.3s ease; /* Өнгө өөрчлөгдөх анимэйшн */
+}
+
+/* Нүдэн доторх линк (хэрэв playable бол) */
+.cell-link {
+    text-decoration: none; /* Линкний доогуурх зураасыг арилгах */
+    color: inherit; /* Текстний өнгийг контейнерээс авах */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Нүдний үндсэн загвар (BoardCell доторх элементэд хамаарна) */
+/* Assuming BoardCell renders a div or similar element with class .cell */
+.cell {
+  font-size: 15vmin; /* X/O тэмдэгтийн хэмжээг самбарт тааруулах */
+  font-weight: bold;
+  /* height: 25vmin; */ /* Энийг хасна эсвэл тааруулна. Контейнер нь хэмжээг удирдана */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Нүүдэл хийх боломжтой нүдний загвар */
+.playable {
+    /* background-color: #FFFF00; /* Тодруулах өнгийг өөрчлөх */
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2); /* Дотор сүүдэр нэмж болно */
+}
+
+/* Нүүдэл хийх боломжтой нүдэн дээр хулганаар дарахад */
+.cell-container:hover.playable {
+    background-color: #FFFACD; /* Хуулганаар дээгүүр нь явахад өөрчлөгдөх өнгө */
+}
+
+
+/* X болон O тэмдэгтүүдийн тусгай загвар (Cell.tsx-д класс оноосон бол ашиглана)*/
+.cell-x {
+    color: #FF4500; /* X-ийн өнгө */
+}
+
+.cell-o {
+    color: #1E90FF; /* O-ийн өнгө */
+}
+
+
+/* Доод хэсгийн загвар */
+#bottombar {
+  height: 5vh; /* Өндрийг тааруулж болно */
+  display: flex; /* Товчнуудыг хажуу хажууд нь байрлуулах */
+  justify-content: space-around; /* Товчнуудын хооронд зай үүсгэх */
+  align-items: center; /* Босоо тэнхлэгт төвлөрүүлэх */
+  margin-top: 10px; /* Самбараас доош зай */
+}
+
+/* Доод хэсэг дэх товчнуудын загвар */
+#bottombar button {
+  width: 45%; /* Өргөнийг тааруулж болно */
+  height: 100%;
+  margin: 0 5px; /* Товчнуудын хооронд бага зай нэмэх */
+  padding: 5px 10px;
+  font-size: 1.2em; /* Фонтын хэмжээг тааруулж болно */
+  cursor: pointer;
+  border: 1px solid #555;
+  border-radius: 5px; /* Булангуудыг дугуй болгох */
+  background-color: #ddd; /* Товчны суурь өнгө */
+  transition: background-color 0.3s ease; /* Өнгө өөрчлөгдөх анимэйшн */
+}
+
+/* Товч дээр хулганаар дарахад */
+#bottombar button:hover {
+  background-color: #ccc; /* Өнгө өөрчлөх */
+}
+
+/* Товч идэвхгүй үед */
+#bottombar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

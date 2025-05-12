@@ -11,30 +11,26 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-    </properties>
+        </properties>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd -->
         <dependency>
             <groupId>org.nanohttpd</groupId>
             <artifactId>nanohttpd</artifactId>
             <version>2.3.0</version>
         </dependency>
-    </dependencies>
+        </dependencies>
+
     <build>
         <plugins>
             <plugin>
+            <configuration>
+               <mainClass>game.App</mainClass> </configuration>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>-classpath</argument>
-                        <classpath/>
-                        <argument>game.App</argument>
-                    </arguments>
-                </configuration>
+                <version>1.2.1</version> <configuration>
+                    <mainClass>game.App</mainClass> </configuration>
             </plugin>
-        </plugins>
+            </plugins>
     </build>
 </project>

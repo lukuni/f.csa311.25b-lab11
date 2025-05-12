@@ -1,16 +1,21 @@
+// BoardCell.tsx
 import React from 'react';
-import { Cell } from './game';
+import { Cell } from './game'; // Using the correct shared interface
 
 interface Props {
-  cell: Cell
+  cell: Cell;
 }
 
 class BoardCell extends React.Component<Props> {
   render(): React.ReactNode {
-    const playable = this.props.cell.playable ? 'playable' : '';
+    const { content, playable } = this.props.cell;
+    const className = `cell${playable ? ' playable' : ''}`;
+
     return (
-      <div className={`cell ${playable}`}>{this.props.cell.text}</div>
-    )
+      <div className={className}>
+        {content}
+      </div>
+    );
   }
 }
 
